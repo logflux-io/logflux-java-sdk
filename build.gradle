@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'io.logflux'
+version = '3.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = false
+        exceptionFormat "full"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:all,-processing,-serial'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'LogFlux Java SDK',
+            'Implementation-Version': project.version,
+            'Implementation-Vendor': 'LogFlux.io'
+        )
+    }
+}
