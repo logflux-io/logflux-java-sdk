@@ -1,0 +1,4 @@
+FROM gradle:8-jdk17
+WORKDIR /sdk
+COPY . .
+CMD ["gradle", "build"]
